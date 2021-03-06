@@ -1,0 +1,63 @@
+<html lang="it">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Tabulator</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/tabulator.css" />
+</head>
+
+<body>
+    <h1>Tabulator</h1>
+    <div id="table"></div>
+
+    <br>
+
+    <button type="button" onclick="refreshTable()">Refresh</button>
+
+    <hr>
+
+    <script type="text/javascript" src="../src/js/footer_manager.js"></script>
+    <script type="text/javascript" src="../src/js/row.js"></script>
+    <script type="text/javascript" src="../src/js/row_manager.js"></script>
+    <script type="text/javascript" src="../src/js/column.js"></script>
+    <script type="text/javascript" src="../src/js/column_manager.js"></script>
+    <script type="text/javascript" src="../src/js/cell.js"></script>
+    <script type="text/javascript" src="../src/js/core.js"></script>
+    <script type="text/javascript" src="../src/js/core_modules.js"></script>
+    <script type="text/javascript" src="../src/js/modules/layout.js"></script>
+    <script type="text/javascript" src="../src/js/modules/localize.js"></script>
+    <script type="text/javascript" src="../src/js/modules/data_tree.js"></script>
+    <script type="text/javascript" src="../src/js/modules/persistence.js"></script>
+    <script type="text/javascript" src="../src/js/modules/filter.js"></script>
+    <script type="text/javascript" src="../src/js/modules/sort.js"></script>
+
+    <script>
+        Tabulator.prototype.bindModules("layout", Layout.prototype.layout)
+
+        let data = [{ name: "Alessandra Amoroso", type: "Cantante", _children: [{ name: "Vivere a Colori", tipo: "Canzone" }, { name: "Stupida", tipo: "Canzone" }] }];
+        let table = new Tabulator("#table", {
+            data: data,
+            layout: "fitColumns",
+            tooltips: true,
+            dataTree: true,
+            persistenceMode: "cookie",
+            persistence: {
+                sort: true, //persist column sorting
+                filter: true, //persist filter sorting
+                group: true, //persist row grouping
+                page: true, //persist page
+                columns: true, //persist columns
+            },
+            columns: [
+                { title: "Name", field: "name" },
+                { title: "Type", field: "type" }
+            ]
+        });
+
+        function refreshTable() {
+            table.setData(data);
+        }
+    </script>
+</body>
+
+</html>
